@@ -47,7 +47,7 @@ const Sidebar = () => {
                             <Play className='fill-gray-600 size-3' />
                         </div>
                         {menuOpen2 ? (
-                            <div className='py-2 ml-10 cursor-pointer'>Menu Applictions</div>
+                            <div className='py-2 ml-10 cursor-pointer'>Interview Prep</div>
                         ) : null}
                     </div>
                 </div>
