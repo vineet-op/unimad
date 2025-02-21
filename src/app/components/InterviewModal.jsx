@@ -6,10 +6,12 @@ import { useState } from "react";
 import React from "react";
 
 function InterviewModal({ isOpen, onClose, setData }) {
+
     const [selectedType, setSelectedType] = useState("");
     const [role, setRole] = useState("");
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("")
+    const [questions, setQuestions] = useState("")
 
     if (!isOpen) return null;
 
@@ -29,11 +31,25 @@ function InterviewModal({ isOpen, onClose, setData }) {
             // Clear inputs and close the modal
             setRole("");
             setCompany("");
+            setDescription("")
             setSelectedType("");
-            onClose();
         } catch (error) {
             console.error("Error in POST request:", error);
         }
+
+
+        try {
+            const geminiResponse = await axios.post("http://localhost:3000/api/getquestions", { selectedType })
+            setQuestions(geminiResponse.data.questions)
+        } catch (error) {
+            console.error("Error while getting questions:", error);
+        } finally {
+            console.log("Error getting questions");
+            // onClose();
+        }
+
+        console.log(selectedType);
+
     };
 
     return (
@@ -109,6 +125,7 @@ function InterviewModal({ isOpen, onClose, setData }) {
                             Start Interview
                         </button>
                     </div>
+                    {questions.toString()}
                 </div>
             </div>
         </div>
