@@ -7,9 +7,16 @@ const InterviewContext = createContext();
 
 export const InterviewProvider = ({ children }) => {
     const [questions, setQuestions] = useState([]);
+    const [userAnswers, setUserAnswers] = useState([]); // Store user answers
+    const [sampleAnswers, setSampleAnswers] = useState([]); // Store AI-generated sample answers
 
     return (
-        <InterviewContext.Provider value={{ questions, setQuestions }}>
+        <InterviewContext.Provider value={{
+            questions, setQuestions, userAnswers,
+            setUserAnswers,
+            sampleAnswers,
+            setSampleAnswers,
+        }}>
             {children}
         </InterviewContext.Provider>
     );
