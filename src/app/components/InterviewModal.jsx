@@ -2,18 +2,24 @@
 
 import axios from "axios";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
+import { useInterview } from "../context/InterviewContext";
+import { useRouter } from "next/navigation";
 
 function InterviewModal({ isOpen, onClose, setData }) {
 
+    const router = useRouter();
+
+    const { setQuestions } = useInterview();
     const [selectedType, setSelectedType] = useState("");
     const [role, setRole] = useState("");
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("")
-    const [questions, setQuestions] = useState("")
+
 
     if (!isOpen) return null;
+
 
     const handleSubmit = async () => {
         try {
@@ -33,6 +39,7 @@ function InterviewModal({ isOpen, onClose, setData }) {
             setCompany("");
             setDescription("")
             setSelectedType("");
+            router.push('interview-prep/questions');
         } catch (error) {
             console.error("Error in POST request:", error);
         }
@@ -120,12 +127,12 @@ function InterviewModal({ isOpen, onClose, setData }) {
 
                         <button
                             onClick={handleSubmit}
+
                             className="w-full bg-blue-500 text-white py-2.5 rounded-md hover:bg-blue-600 transition-colors mt-6"
                         >
                             Start Interview
                         </button>
                     </div>
-                    {questions.toString()}
                 </div>
             </div>
         </div>

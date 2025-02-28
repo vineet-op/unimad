@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
+import { InterviewProvider } from "./context/InterviewContext";
 
 
 const geistSans = Geist({
@@ -24,7 +25,11 @@ export default function RootLayout({ children }) {
       <body>
         <div className="flex w-screen h-screen">
           <Sidebar />
-          <div className="flex-1 overflow-auto">{children}</div>
+          <div className="flex-1 overflow-auto">
+            <InterviewProvider>
+              {children}
+            </InterviewProvider>
+          </div>
         </div>
       </body>
     </html>
