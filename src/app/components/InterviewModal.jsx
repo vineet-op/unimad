@@ -12,7 +12,7 @@ function InterviewModal({ isOpen, onClose, setData }) {
     const router = useRouter();
 
     const { setQuestions } = useInterview();
-    const [selectedType, setSelectedType] = useState("");
+    const [selectedType, setSelectedType] = useState("Behavioral");
     const [role, setRole] = useState("");
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("")
