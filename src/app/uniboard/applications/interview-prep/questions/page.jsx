@@ -4,24 +4,25 @@
 import React, { useState } from "react";
 import { useInterview } from "../../../../context/InterviewContext";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const QuestionsPage = () => {
     const router = useRouter();
-    const { questions, setUserAnswers, userAnswers } = useInterview();
+    const { questions, setUserAnswers, userAnswers, setSampleAnswers } = useInterview();
 
-    // Utility function to remove numbering from questions
+
     const cleanQuestion = (question) => {
-        return question.replace(/^\d+\.\s*/, "").replace(/\*\*/g, ""); // Remove numbering (e.g., "2. ", "3. ")
+        return question.replace(/^\d+\.\s*/, "").replace(/\*\*/g, "");
     };
 
-    // Clean the questions by removing numbering
+
     const cleanedQuestions = questions.slice(1).map(cleanQuestion);
 
     const [currentStep, setCurrentStep] = useState(0);
     const [answer, setAnswer] = useState("");
 
     // Handle Next button click
-    const handleNext = () => {
+    const handleNext = async () => {
         // Save the user's answer
         const updatedAnswers = [...userAnswers];
         updatedAnswers[currentStep] = answer;
@@ -30,9 +31,18 @@ const QuestionsPage = () => {
         // Move to the next question or redirect to review page
         if (currentStep < cleanedQuestions.length - 1) {
             setCurrentStep(currentStep + 1);
-            setAnswer(""); // Clear the input for the next question
+            setAnswer("");
         } else {
-            router.push("/reviews"); // Redirect to the review page
+            const response = await fetch("http://localhost:3000/api/aianswers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ questions, userAnswers }),
+            });
+            const data = await response.json();
+            setSampleAnswers(data.sampleAnswers);
+            router.push("/reviews");
         }
     };
 
@@ -52,8 +62,11 @@ const QuestionsPage = () => {
         }
     };
 
-    // Calculate progress percentage
     const progress = ((currentStep + 1) / cleanedQuestions.length) * 100;
+
+    console.log(questions);
+    console.log(answer);
+
 
     return (
         <div className="p-4 max-w-2xl mx-auto">
