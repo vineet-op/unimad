@@ -1,4 +1,3 @@
-// context/InterviewContext.js
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
@@ -8,28 +7,31 @@ const InterviewContext = createContext();
 export const InterviewProvider = ({ children }) => {
     const [questions, setQuestions] = useState([]);
     const [userAnswers, setUserAnswers] = useState([]); // Store user answers
-    const [sampleAnswers, setSampleAnswers] = useState({}); // Store AI-generated sample answers
+    const [sampleAnswers, setSampleAnswers] = useState([]); // Store AI-generated sample answers
+    const [loading, setLoading] = useState(false);
 
-    // Function to generate a sample answer for a specific question
-    const generateSampleAnswer = async (question) => {
+
+
+    const generateAllSampleAnswers = async (questionsToProcess) => {
+        setLoading(true);
         try {
-            const response = await fetch("/api/generate-sample-answers", {
+            const response = await fetch("/api/aianswers/bulk", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ question }),
+                body: JSON.stringify({ questions: questionsToProcess }),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to generate sample answer");
-            }
+            if (!response.ok) throw new Error("Failed to generate answers");
 
             const data = await response.json();
-            return data.sampleAnswer; // Return the generated sample answer
+            const validAnswers = data.sampleAnswers.slice(1);
+            setSampleAnswers(validAnswers);
         } catch (error) {
-            console.error("Error generating sample answer:", error);
-            return null;
+            console.error("Error generating answers:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -41,7 +43,7 @@ export const InterviewProvider = ({ children }) => {
             setUserAnswers,
             sampleAnswers,
             setSampleAnswers,
-            generateSampleAnswer, // Provide the function
+            generateAllSampleAnswers,
         }}>
             {children}
         </InterviewContext.Provider>

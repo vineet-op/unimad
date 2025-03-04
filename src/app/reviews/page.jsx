@@ -3,21 +3,27 @@
 import { useInterview } from "../context/InterviewContext";
 import ReviewAiAnswers from "../components/ReviewAiAnswers";
 import ReviewAnswer from "../components/ReviewAnswer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Page = () => {
-    const { questions, userAnswers, sampleAnswers = [] } = useInterview();
+    const { questions, userAnswers, sampleAnswers, loading, generateAllSampleAnswers } = useInterview();
+
     const [activeQuestionIndex, setActiveQuestionIndex] = useState(null);
 
-    const actualQuestion = questions.slice(1).map(question => question
-        .replace(/^[^\w]+|[^\w]+$/g, '')
-        .replace(/[^a-zA-Z\s]/g, ''));
+    useEffect(() => {
+        if (questions.length > 0) {
+            const processedQuestions = questions.slice(1).map(q =>
+                q.replace(/^[^\w]+|[^\w]+$/g, '')
+                    .replace(/[^a-zA-Z\s]/g, '')
+            );
+            generateAllSampleAnswers(processedQuestions);
+        }
+    }, [questions]);
 
-
-    // Handle question click
     const handleQuestionClick = (index) => {
-        setActiveQuestionIndex(index === activeQuestionIndex ? null : index); // Toggle active question
+        setActiveQuestionIndex(index === activeQuestionIndex ? null : index);
     };
+
 
 
 
@@ -25,25 +31,24 @@ const Page = () => {
         <div className="max-w-full flex justify-around bg-neutral-100">
             {/* User Answers Section */}
             <div className="mb-8 p-8 bg-white flex items-center flex-col overflow-y-visible" style={{ width: '70%' }}>
-
-                {actualQuestion.map((question, index) => (
+                {loading && <p className="text-gray-500 mb-4">Generating sample answers...</p>}
+                {questions.slice(1).map((question, index) => (
                     <ReviewAnswer
                         key={index}
                         question={question}
                         answer={userAnswers[index] || "No answer provided."}
                         category="Technical"
-                        onClick={() => handleQuestionClick(index)} // Handle question click
-                        isActive={index === activeQuestionIndex} // Highlight
+                        onClick={() => handleQuestionClick(index)}
+                        isActive={index === activeQuestionIndex}
                     />
-
                 ))}
             </div>
 
             {/* AI Answers Section */}
             <div style={{ width: '50%' }} className="bg-white pr-5 overflow-hidden">
-                {activeQuestionIndex !== null && (
+                {activeQuestionIndex !== null && sampleAnswers[activeQuestionIndex] && (
                     <ReviewAiAnswers
-                        question={actualQuestion[activeQuestionIndex]}
+                        answer={sampleAnswers[activeQuestionIndex]}
                     />
                 )}
             </div>
