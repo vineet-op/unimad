@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Unimad - AI Interview Prep Platform
 
-## Getting Started
 
-First, run the development server:
+## 🚀 Overview
+Unimad is an AI-powered interview preparation platform designed to help candidates practice and improve their interview skills. The platform leverages cutting-edge AI technologies to simulate real interview scenarios and provide personalized feedback.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎥 Demo
+https://github.com/user-attachments/assets/788490a4-aee9-4ff2-bb58-a1865e556131
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
+- **Frontend:** Next.js, Tailwind CSS
+- **AI Integration:** Gemini API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Setup Instructions
 
-## Learn More
+Follow these steps to set up the project locally:
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
+- Node.js (v16+ recommended)
+- Git
+- Any package manager (npm, yarn, or pnpm)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/unimad.git
+   cd unimad
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install  # or yarn install or pnpm install
+   ```
+3. **Set up environment variables:**
+   - Create a `.env` file in the root directory.
+   - Add required variables as per `.env.example`.
 
-## Deploy on Vercel
+4. **Start the development server:**
+   ```sh
+   npm run dev  # or yarn dev or pnpm dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **Open the application:**
+   - Visit `http://localhost:3000` in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
