@@ -11,16 +11,22 @@ function InterviewModal({ isOpen, onClose, setData }) {
 
     const router = useRouter();
 
-    const { setQuestions } = useInterview();
+    const { setQuestions, usercompany, userrole, setUserCompany, setuserRole } = useInterview()
+
     const [selectedType, setSelectedType] = useState("Behavioral");
     const [role, setRole] = useState("");
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("")
 
+
     if (!isOpen) return null;
 
     const handleSubmit = async () => {
         try {
+            // Set context values before API call
+            setuserRole(role);
+            setUserCompany(company);
+
             const response = await axios.post("http://localhost:3000/api/companydata", {
                 role,
                 company,
@@ -77,7 +83,10 @@ function InterviewModal({ isOpen, onClose, setData }) {
                                 <label className="block text-sm mb-1">Role</label>
                                 <input
                                     value={role}
-                                    onChange={(e) => setRole(e.target.value)}
+                                    onChange={(e) => {
+                                        setRole(e.target.value);
+                                        setuserRole(e.target.value);
+                                    }}
                                     type="text"
                                     className="w-full px-3 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
@@ -86,7 +95,10 @@ function InterviewModal({ isOpen, onClose, setData }) {
                                 <label className="block text-sm mb-1">Company</label>
                                 <input
                                     value={company}
-                                    onChange={(e) => setCompany(e.target.value)}
+                                    onChange={(e) => {
+                                        setCompany(e.target.value);
+                                        setUserCompany(e.target.value);
+                                    }}
                                     type="text"
                                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />

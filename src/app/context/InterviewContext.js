@@ -9,7 +9,8 @@ export const InterviewProvider = ({ children }) => {
     const [userAnswers, setUserAnswers] = useState([]); // Store user answers
     const [sampleAnswers, setSampleAnswers] = useState([]); // Store AI-generated sample answers
     const [loading, setLoading] = useState(false);
-
+    const [usercompany, setUserCompany] = useState(""); // 
+    const [userrole, setuserRole] = useState(""); // 
 
 
     const generateAllSampleAnswers = async (questionsToProcess) => {
@@ -67,6 +68,10 @@ export const InterviewProvider = ({ children }) => {
 
     return (
         <InterviewContext.Provider value={{
+            usercompany,
+            setUserCompany,
+            userrole,
+            setuserRole,
             questions,
             setQuestions,
             userAnswers,

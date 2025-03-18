@@ -9,7 +9,7 @@ import { ChevronLeft, Repeat } from "lucide-react";
 
 const Page = () => {
     const router = useRouter();
-    const { questions, userAnswers, sampleAnswers, loading, generateAllSampleAnswers } = useInterview();
+    const { questions, userAnswers, sampleAnswers, loading, generateAllSampleAnswers, usercompany, userrole } = useInterview();
 
     const [activeQuestionIndex, setActiveQuestionIndex] = useState(null);
 
@@ -40,10 +40,10 @@ const Page = () => {
             <div className="bg-white w-[655px] ml-8 mt-5 h-20 flex justify-between border-2 border-blue-400 rounded-lg items-center">
                 <div className="p-5">
                     <div className="font-semibold">
-                        Data Manager
+                        {usercompany}
                     </div>
                     <div className="font-normal text-neutral-600">
-                        Google
+                        {userrole}
                     </div>
                 </div>
                 <div className="p-5">
