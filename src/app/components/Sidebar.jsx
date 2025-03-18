@@ -15,17 +15,34 @@ const Sidebar = () => {
     return (
         <div className='w-[289px] bg-white shadow-xl'>
             {/* //LOGO */}
-            <div className='flex flex-col  w-full h-screen'>
-                <div className='w-full h-[106px] flex items-center  justify-center relative  bg-blue-600 rounded-b-full'>
-                    <Image src={mainlogo} alt='mainlogo' className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
+            <div className="flex flex-col w-full h-screen">
+
+                <div className="relative w-full h-[120px] overflow-hidden">
+
+                    <div
+                        className="absolute bg-blue-600 rounded-[50%]"
+                        style={{
+                            width: "532px",
+                            height: "246px",
+                            top: "-172px",
+                            left: "-120px",
+                        }}
+                    >
+                        {/* Logo positioned within the visible part of the eclipse */}
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+                            <Image src="/mainlogo.png" alt="unimad logo" width={120} height={40} />
+                        </div>
+                    </div>
                 </div>
 
-                <div className='flex flex-row gap-2 w-full items-center justify-around pt-10 pl-6'>
-                    <Image src={tanya} alt='tanyalogo' width={25} height={25} />
-                    <div className='text-blue-500 text-center font-semibold'>
-                        Tanya Feranandez
+                {/* Profile section */}
+                <div className="flex flex-row gap-2 w-full items-center justify-between px-6 mt-6">
+                    <div className="flex items-center gap-2">
+                        {/* Use the correct path for the profile image */}
+                        <Image src="/tanya.png" alt="profile picture" width={25} height={25} className="rounded-full" />
+                        <div className="text-blue-500 font-semibold">Tanya Fernandez</div>
                     </div>
-                    <EllipsisVertical size={20} />
+                    <EllipsisVertical size={20} className="text-gray-400" />
                 </div>
                 <hr className='border-t border-gray-400 my-8' />
 
