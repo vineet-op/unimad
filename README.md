@@ -5,7 +5,10 @@
 Unimad is an AI-powered interview preparation platform designed to help candidates practice and improve their interview skills. The platform leverages cutting-edge AI technologies to simulate real interview scenarios and provide personalized feedback.
 
 ## 🎥 Demo
-https://github.com/user-attachments/assets/788490a4-aee9-4ff2-bb58-a1865e556131
+
+https://github.com/user-attachments/assets/3c002747-e256-463c-b508-8242afc481ef
+
+
 
 
 ## 🛠️ Tech Stack
