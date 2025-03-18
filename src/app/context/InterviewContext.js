@@ -15,7 +15,7 @@ export const InterviewProvider = ({ children }) => {
     const generateAllSampleAnswers = async (questionsToProcess) => {
         setLoading(true);
         try {
-            const response = await fetch("/api/aianswers/bulk", {
+            const response = await fetch("/api/aianswers", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,6 +35,36 @@ export const InterviewProvider = ({ children }) => {
         }
     };
 
+    const regenerateSingleAnswer = async (questionIndex) => {
+        setLoading(true);
+        try {
+            const response = await fetch("/api/aianswers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    questions: [questions[questionIndex]],
+                    regenerate: true
+                }),
+            });
+
+            if (!response.ok) throw new Error("Failed to regenerate answer");
+
+            const data = await response.json();
+            const newAnswer = data.sampleAnswers[0];
+
+            // Create a new array with the regenerated answer
+            const updatedSampleAnswers = [...sampleAnswers];
+            updatedSampleAnswers[questionIndex] = newAnswer;
+            setSampleAnswers(updatedSampleAnswers);
+        } catch (error) {
+            console.error("Error regenerating answer:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <InterviewContext.Provider value={{
             questions,
@@ -44,6 +74,7 @@ export const InterviewProvider = ({ children }) => {
             sampleAnswers,
             setSampleAnswers,
             generateAllSampleAnswers,
+            regenerateSingleAnswer,
         }}>
             {children}
         </InterviewContext.Provider>

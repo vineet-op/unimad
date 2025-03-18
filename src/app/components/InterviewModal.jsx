@@ -17,9 +17,7 @@ function InterviewModal({ isOpen, onClose, setData }) {
     const [company, setCompany] = useState("");
     const [description, setDescription] = useState("")
 
-
     if (!isOpen) return null;
-
 
     const handleSubmit = async () => {
         try {

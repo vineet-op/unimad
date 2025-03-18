@@ -2,7 +2,7 @@ import React from 'react';
 
 const ReviewAnswer = ({ question, answer, category, onClick, isActive }) => {
     return (
-        <div className={`border border-blue-300 rounded-lg p-4 max-w-2xl ${isActive ? "border-2 border-blue-500" : ""}`} onClick={onClick}>
+        <div className={`border-2 border-blue-400 rounded-lg p-4 max-w-2xl ${isActive ? "border-2 border-blue-500" : ""}`} onClick={onClick}>
             <div className="flex justify-between items-center mb-2">
                 <h3 className="text-gray-600 font-normal">
                     {question.replace(/[^a-zA-Z\s]/g, '')}
